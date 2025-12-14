@@ -7,6 +7,13 @@ import Index from "./pages/Index";
 import AuthPage from "./pages/AuthPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import FarmerRegisterPage from "./pages/FarmerRegisterPage";
+import HowItWorksPage from "./pages/HowItWorksPage";
+import SchemesPage from "./pages/SchemesPage";
+import WeatherPage from "./pages/WeatherPage";
+import MarketPricesPage from "./pages/MarketPricesPage";
+import HelpCenterPage from "./pages/HelpCenterPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +29,13 @@ const App = () => (
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
           <Route path="/farmer/register" element={<FarmerRegisterPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/schemes" element={<SchemesPage />} />
+          <Route path="/weather" element={<WeatherPage />} />
+          <Route path="/mandi-prices" element={<MarketPricesPage />} />
+          <Route path="/help" element={<HelpCenterPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
