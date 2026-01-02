@@ -18,8 +18,11 @@ import ContactPage from "./pages/ContactPage";
 import UserDashboard from "./pages/UserDashboard";
 import FarmerDashboard from "./pages/FarmerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+<<<<<<< HEAD
 import FarmerHelpCenter from "./pages/FarmerHelpCenter";
 import UserHelpCenter from "./pages/UserHelpCenter";
+=======
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,8 +46,12 @@ const App = () => (
             <Route path="/schemes" element={<SchemesPage />} />
             <Route path="/weather" element={<WeatherPage />} />
             <Route path="/mandi-prices" element={<MarketPricesPage />} />
+<<<<<<< HEAD
             <Route path="/help/farmer" element={<FarmerHelpCenter />} />
             <Route path="/help/user" element={<UserHelpCenter />} />
+=======
+            <Route path="/help" element={<HelpCenterPage />} />
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

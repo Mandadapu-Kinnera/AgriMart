@@ -1,16 +1,29 @@
+<<<<<<< HEAD
 import { useState, useRef } from "react";
+=======
+import { useState } from "react";
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+<<<<<<< HEAD
 import {
   Leaf,
   ArrowLeft,
   User,
   Phone,
   MapPin,
+=======
+import { 
+  Leaf, 
+  ArrowLeft, 
+  User, 
+  Phone, 
+  MapPin, 
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   Wheat,
   Upload,
   CheckCircle2
@@ -40,6 +53,7 @@ export default function FarmerRegisterPage() {
     crops: "",
     experience: "",
     description: "",
+<<<<<<< HEAD
     aadhaarFile: null as File | null,
     landDocFile: null as File | null,
   });
@@ -74,12 +88,20 @@ export default function FarmerRegisterPage() {
       }
     }
 
+=======
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
     if (currentStep < 3) {
       setCurrentStep(currentStep + 1);
       return;
     }
 
     setLoading(true);
+<<<<<<< HEAD
     try {
       // Helper function to convert File to Base64
       const fileToBase64 = (file: File): Promise<string> => {
@@ -143,6 +165,16 @@ export default function FarmerRegisterPage() {
     } finally {
       setLoading(false);
     }
+=======
+    setTimeout(() => {
+      setLoading(false);
+      toast({
+        title: "Registration Submitted!",
+        description: "Your application is under review. We'll notify you within 24-48 hours.",
+      });
+      navigate("/");
+    }, 1500);
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   };
 
   return (
@@ -177,12 +209,22 @@ export default function FarmerRegisterPage() {
         <div className="flex items-center justify-between mb-8 max-w-md">
           {steps.map((step, index) => (
             <div key={step.id} className="flex items-center">
+<<<<<<< HEAD
               <div className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold ${currentStep > step.id
                 ? "bg-primary text-primary-foreground"
                 : currentStep === step.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground"
                 }`}>
+=======
+              <div className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold ${
+                currentStep > step.id
+                  ? "bg-primary text-primary-foreground"
+                  : currentStep === step.id
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground"
+              }`}>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                 {currentStep > step.id ? (
                   <CheckCircle2 className="w-5 h-5" />
                 ) : (
@@ -191,8 +233,14 @@ export default function FarmerRegisterPage() {
               </div>
               <span className="ml-2 text-sm font-medium hidden sm:block">{step.title}</span>
               {index < steps.length - 1 && (
+<<<<<<< HEAD
                 <div className={`w-12 sm:w-20 h-0.5 mx-2 ${currentStep > step.id ? "bg-primary" : "bg-muted"
                   }`} />
+=======
+                <div className={`w-12 sm:w-20 h-0.5 mx-2 ${
+                  currentStep > step.id ? "bg-primary" : "bg-muted"
+                }`} />
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
               )}
             </div>
           ))}
@@ -246,6 +294,7 @@ export default function FarmerRegisterPage() {
                     </div>
                   </div>
 
+<<<<<<< HEAD
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
                     <div className="relative">
@@ -262,6 +311,8 @@ export default function FarmerRegisterPage() {
                     </div>
                   </div>
 
+=======
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="state">State</Label>
@@ -359,6 +410,7 @@ export default function FarmerRegisterPage() {
               {currentStep === 3 && (
                 <>
                   <div className="space-y-4">
+<<<<<<< HEAD
                     <div
                       className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer ${formData.aadhaarFile ? "border-primary bg-primary/5" : "border-border hover:border-primary"}`}
                       onClick={() => aadhaarRef.current?.click()}
@@ -419,6 +471,21 @@ export default function FarmerRegisterPage() {
                         accept="image/*"
                         multiple
                       />
+=======
+                    <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                      <Upload className="w-10 h-10 mx-auto mb-4 text-muted-foreground" />
+                      <p className="font-medium mb-1">Upload Aadhaar Card</p>
+                      <p className="text-sm text-muted-foreground">Drag & drop or click to upload</p>
+                    </div>
+
+                    <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                      <Upload className="w-10 h-10 mx-auto mb-4 text-muted-foreground" />
+                      <p className="font-medium mb-1">Upload Land Documents</p>
+                      <p className="text-sm text-muted-foreground">Pattadar passbook or land records</p>
+                    </div>
+
+                    <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-primary transition-colors cursor-pointer">
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                       <Upload className="w-10 h-10 mx-auto mb-4 text-muted-foreground" />
                       <p className="font-medium mb-1">Upload Farm Photos (Optional)</p>
                       <p className="text-sm text-muted-foreground">Show buyers your farm</p>
@@ -446,8 +513,13 @@ export default function FarmerRegisterPage() {
                   {loading
                     ? "Submitting..."
                     : currentStep === 3
+<<<<<<< HEAD
                       ? "Submit Application"
                       : "Continue"}
+=======
+                    ? "Submit Application"
+                    : "Continue"}
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                 </Button>
               </div>
             </form>

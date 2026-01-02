@@ -13,7 +13,11 @@ export default function AuthPage() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user, userRole, signIn, signUp, loading: authLoading } = useAuth();
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   const [isLogin, setIsLogin] = useState(searchParams.get("mode") !== "signup");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,7 +28,11 @@ export default function AuthPage() {
     password: "",
   });
 
+<<<<<<< HEAD
   // Redirect if already logged in or handle pre-filled data
+=======
+  // Redirect if already logged in
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   useEffect(() => {
     if (!authLoading && user) {
       if (userRole === "admin") {
@@ -35,6 +43,7 @@ export default function AuthPage() {
         navigate("/dashboard");
       }
     }
+<<<<<<< HEAD
 
     // Pre-fill data if available in URL
     const nameParam = searchParams.get("name");
@@ -49,6 +58,9 @@ export default function AuthPage() {
   }, [user, userRole, authLoading, navigate, searchParams]);
 
   const isFarmerSignup = !!(!isLogin && searchParams.get("role") === "farmer" && (searchParams.get("email") || searchParams.get("name")));
+=======
+  }, [user, userRole, authLoading, navigate]);
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,8 +81,12 @@ export default function AuthPage() {
         });
       }
     } else {
+<<<<<<< HEAD
       const role = searchParams.get("role") || "user";
       const { error } = await signUp(formData.email, formData.password, formData.name, role as any);
+=======
+      const { error } = await signUp(formData.email, formData.password, formData.name);
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       if (error) {
         toast({
           title: "Signup Failed",
@@ -121,6 +137,7 @@ export default function AuthPage() {
                   <Label htmlFor="name">Full Name</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+<<<<<<< HEAD
                     <Input
                       id="name"
                       type="text"
@@ -131,6 +148,9 @@ export default function AuthPage() {
                       required
                       readOnly={isFarmerSignup}
                     />
+=======
+                    <Input id="name" type="text" placeholder="Enter your full name" className="pl-10" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                   </div>
                 </div>
               )}
@@ -139,6 +159,7 @@ export default function AuthPage() {
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+<<<<<<< HEAD
                   <Input
                     id="email"
                     type="email"
@@ -155,6 +176,10 @@ export default function AuthPage() {
                     * These details are locked to match your registration form.
                   </p>
                 )}
+=======
+                  <Input id="email" type="email" placeholder="Enter your email" className="pl-10" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
+                </div>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
               </div>
 
               <div className="space-y-2">
@@ -173,6 +198,18 @@ export default function AuthPage() {
               </Button>
             </form>
 
+<<<<<<< HEAD
+=======
+            {/* Demo credentials info */}
+            {isLogin && (
+              <div className="mt-4 p-3 bg-muted rounded-lg text-sm">
+                <p className="font-medium mb-2">Demo Credentials:</p>
+                <p className="text-muted-foreground">Admin: admin@agrimart.com / admin123</p>
+                <p className="text-muted-foreground">Farmer: farmer@agrimart.com / farmer123</p>
+                <p className="text-muted-foreground">User: user@agrimart.com / user123</p>
+              </div>
+            )}
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
 
             <div className="mt-6 text-center text-sm">
               {isLogin ? (

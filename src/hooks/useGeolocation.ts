@@ -26,6 +26,7 @@ export function useGeolocation() {
 
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
+<<<<<<< HEAD
     const attemptFetch = (highAccuracy: boolean) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -72,21 +73,68 @@ export function useGeolocation() {
     };
 
     attemptFetch(true);
+=======
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+          loading: false,
+        });
+      },
+      (error) => {
+        let errorMessage = "Unable to get location";
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = "Location permission denied. Please enable location access.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = "Location information unavailable.";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Location request timed out.";
+            break;
+        }
+        setState({
+          latitude: null,
+          longitude: null,
+          error: errorMessage,
+          loading: false,
+        });
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000, // 5 minutes cache
+      }
+    );
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   }, []);
 
   const calculateDistance = useCallback(
     (lat2: number, lon2: number): number | null => {
       if (state.latitude === null || state.longitude === null) return null;
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       const R = 6371; // Earth's radius in km
       const dLat = ((lat2 - state.latitude) * Math.PI) / 180;
       const dLon = ((lon2 - state.longitude) * Math.PI) / 180;
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((state.latitude * Math.PI) / 180) *
+<<<<<<< HEAD
         Math.cos((lat2 * Math.PI) / 180) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
+=======
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       return R * c;
     },

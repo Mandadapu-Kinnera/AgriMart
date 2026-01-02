@@ -43,8 +43,13 @@ const milestones = [
 
 const AboutPage = () => {
   return (
+<<<<<<< HEAD
     <div className="min-h-screen flex flex-col bg-background pt-20">
       <Header showLinks={false} />
+=======
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       <main className="flex-1">
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-b from-primary/10 to-background">
@@ -53,7 +58,11 @@ const AboutPage = () => {
               About AgriMart
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+<<<<<<< HEAD
               We're on a mission to revolutionize agricultural trade in India by connecting farmers directly
+=======
+              We're on a mission to revolutionize agricultural trade in India by connecting farmers directly 
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
               with consumers and retailers, ensuring fair prices and fresh produce for all.
             </p>
           </div>
@@ -67,8 +76,13 @@ const AboutPage = () => {
                 <Target className="w-12 h-12 text-primary mb-4" />
                 <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
                 <p className="text-muted-foreground">
+<<<<<<< HEAD
                   To empower Indian farmers by providing direct market access, eliminating middlemen,
                   and ensuring they receive fair prices for their hard work. We aim to create a
+=======
+                  To empower Indian farmers by providing direct market access, eliminating middlemen, 
+                  and ensuring they receive fair prices for their hard work. We aim to create a 
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                   transparent and efficient agricultural marketplace.
                 </p>
               </Card>
@@ -76,8 +90,13 @@ const AboutPage = () => {
                 <Users className="w-12 h-12 text-primary mb-4" />
                 <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
                 <p className="text-muted-foreground">
+<<<<<<< HEAD
                   A future where every farmer has access to technology-driven market solutions,
                   every consumer enjoys farm-fresh produce at fair prices, and the agricultural
+=======
+                  A future where every farmer has access to technology-driven market solutions, 
+                  every consumer enjoys farm-fresh produce at fair prices, and the agricultural 
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                   supply chain is sustainable and waste-free.
                 </p>
               </Card>

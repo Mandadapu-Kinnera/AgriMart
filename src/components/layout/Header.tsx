@@ -11,11 +11,15 @@ const navigation = [
   { name: "For Farmers", href: "/farmer/register" },
 ];
 
+<<<<<<< HEAD
 interface HeaderProps {
   showLinks?: boolean;
 }
 
 export function Header({ showLinks = true }: HeaderProps) {
+=======
+export function Header() {
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -33,6 +37,7 @@ export function Header({ showLinks = true }: HeaderProps) {
         </Link>
 
         {/* Desktop Navigation */}
+<<<<<<< HEAD
         {showLinks && (
           <div className="hidden md:flex items-center gap-8">
             {navigation.map((item) => (
@@ -75,6 +80,44 @@ export function Header({ showLinks = true }: HeaderProps) {
 
       {/* Mobile Menu */}
       {showLinks && mobileMenuOpen && (
+=======
+        <div className="hidden md:flex items-center gap-8">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                location.pathname === item.href ? "text-primary" : "text-muted-foreground"
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <Button variant="ghost" asChild>
+            <Link to="/auth">Log In</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/auth?mode=signup">Get Started</Link>
+          </Button>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
         <div className="md:hidden bg-background border-t border-border animate-fade-in">
           <div className="container mx-auto py-4 px-4 flex flex-col gap-4">
             {navigation.map((item) => (

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+=======
+import { Card, CardContent } from "@/components/ui/card";
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
@@ -23,12 +27,15 @@ import {
   Loader2,
   LogOut,
   TrendingUp,
+<<<<<<< HEAD
   User,
   Mail,
   Phone,
   MapPin,
   Wheat,
   ExternalLink,
+=======
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
 } from "lucide-react";
 
 // Mock data
@@ -57,6 +64,7 @@ const initialFarmers = [
   },
 ];
 
+<<<<<<< HEAD
 const mockUsers: any[] = [];
 const mockProducts: any[] = [];
 const mockOrders: any[] = [];
@@ -78,6 +86,42 @@ function SidebarLink({
 }) {
   return (
     <div
+=======
+const mockUsers = [
+  { id: "1", full_name: "Demo User", email: "user@agrimart.com", created_at: new Date().toISOString(), user_roles: [{ role: "user" }] },
+  { id: "2", full_name: "Demo Farmer", email: "farmer@agrimart.com", created_at: new Date().toISOString(), user_roles: [{ role: "farmer" }] },
+  { id: "3", full_name: "Admin User", email: "admin@agrimart.com", created_at: new Date().toISOString(), user_roles: [{ role: "admin" }] },
+];
+
+const mockProducts = [
+  { id: "1", name: "Fresh Tomatoes", category: "Vegetables", price: 40, unit: "kg", is_active: true, farmer_name: "Ramesh Kumar" },
+  { id: "2", name: "Organic Rice", category: "Grains", price: 80, unit: "kg", is_active: true, farmer_name: "Suresh Patil" },
+  { id: "3", name: "Alphonso Mangoes", category: "Fruits", price: 350, unit: "dozen", is_active: true, farmer_name: "Suresh Patil" },
+];
+
+const mockOrders = [
+  { id: "1", order_number: "ORD-001", total_amount: 450, status: "delivered", created_at: new Date().toISOString(), buyer: "Demo User" },
+  { id: "2", order_number: "ORD-002", total_amount: 1200, status: "pending", created_at: new Date().toISOString(), buyer: "Demo User" },
+];
+
+type ActiveView = "dashboard" | "requests" | "farmers" | "users" | "products" | "orders";
+
+function SidebarLink({ 
+  icon: Icon, 
+  label, 
+  active, 
+  count, 
+  onClick 
+}: { 
+  icon: any; 
+  label: string; 
+  active?: boolean; 
+  count?: number; 
+  onClick?: () => void;
+}) {
+  return (
+    <div 
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       className={`flex items-center justify-between px-4 py-2.5 rounded-lg cursor-pointer transition-colors ${active ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}
       onClick={onClick}
     >
@@ -96,6 +140,7 @@ export default function AdminDashboard() {
   const { user, userRole, signOut, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+<<<<<<< HEAD
 
   const [farmers, setFarmers] = useState<any[]>([]);
   const [users, setUsers] = useState<any[]>([]);
@@ -108,12 +153,25 @@ export default function AdminDashboard() {
   const [selectedFarmer, setSelectedFarmer] = useState<any>(null);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [approveDialogOpen, setApproveDialogOpen] = useState(false);
+=======
+  
+  const [farmers, setFarmers] = useState(initialFarmers);
+  const [users] = useState(mockUsers);
+  const [products] = useState(mockProducts);
+  const [orders] = useState(mockOrders);
+  const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeView, setActiveView] = useState<ActiveView>("dashboard");
+  
+  const [selectedFarmer, setSelectedFarmer] = useState<any>(null);
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
 
   useEffect(() => {
     if (!authLoading && (!user || userRole !== "admin")) {
       navigate("/auth");
+<<<<<<< HEAD
       return;
     }
     fetchFarmers();
@@ -273,6 +331,39 @@ export default function AdminDashboard() {
         variant: "destructive"
       });
     }
+=======
+    }
+  }, [user, userRole, authLoading, navigate]);
+
+  const handleApproveFarmer = (farmer: any) => {
+    setFarmers(farmers.map(f => 
+      f.id === farmer.id 
+        ? { ...f, approval_status: "approved" }
+        : f
+    ));
+    toast({
+      title: "Farmer Approved",
+      description: "The farmer has been approved and notified.",
+    });
+  };
+
+  const handleRejectFarmer = () => {
+    if (!selectedFarmer) return;
+    
+    setFarmers(farmers.map(f => 
+      f.id === selectedFarmer.id 
+        ? { ...f, approval_status: "rejected" }
+        : f
+    ));
+    
+    toast({
+      title: "Farmer Rejected",
+      description: "The farmer has been notified.",
+    });
+    setRejectDialogOpen(false);
+    setSelectedFarmer(null);
+    setRejectionReason("");
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   };
 
   const handleSignOut = async () => {
@@ -289,6 +380,7 @@ export default function AdminDashboard() {
   }
 
   // Calculate stats
+<<<<<<< HEAD
   const pendingFarmers = farmers.filter((f) => f.status?.toLowerCase() === "pending" || f.status?.toLowerCase() === "incomplete").length;
   const approvedFarmers = farmers.filter((f) => f.status === "approved").length;
   const totalUsers = users.length;
@@ -305,12 +397,34 @@ export default function AdminDashboard() {
     const phoneMatch = farmer.phone?.toLowerCase().includes(searchLower);
 
     return !searchQuery || nameMatch || emailMatch || cropsMatch || phoneMatch;
+=======
+  const pendingFarmers = farmers.filter((f) => f.approval_status === "pending").length;
+  const approvedFarmers = farmers.filter((f) => f.approval_status === "approved").length;
+  const totalUsers = users.length;
+  const totalOrders = orders.length;
+  const totalRevenue = orders
+    .filter((o) => o.status === "delivered")
+    .reduce((sum, o) => sum + o.total_amount, 0);
+
+  const filteredFarmers = farmers.filter((farmer) => {
+    const profile = farmer.profiles;
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      profile?.full_name?.toLowerCase().includes(searchLower) ||
+      profile?.email?.toLowerCase().includes(searchLower) ||
+      farmer.farm_name?.toLowerCase().includes(searchLower)
+    );
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   });
 
   const filteredUsers = users.filter((u) => {
     const searchLower = searchQuery.toLowerCase();
     return (
+<<<<<<< HEAD
       u.name?.toLowerCase().includes(searchLower) ||
+=======
+      u.full_name?.toLowerCase().includes(searchLower) ||
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       u.email?.toLowerCase().includes(searchLower)
     );
   });
@@ -329,7 +443,11 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">Pending Farmer Requests</h2>
+<<<<<<< HEAD
             {filteredFarmers.filter((f) => f.status?.toLowerCase() === "pending" || f.status?.toLowerCase() === "incomplete").length === 0 ? (
+=======
+            {filteredFarmers.filter((f) => f.approval_status === "pending").length === 0 ? (
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
               <Card>
                 <CardContent className="py-12 text-center">
                   <CheckCircle className="w-12 h-12 mx-auto text-green-500 mb-4" />
@@ -338,13 +456,20 @@ export default function AdminDashboard() {
               </Card>
             ) : (
               filteredFarmers
+<<<<<<< HEAD
                 .filter((f) => f.status?.toLowerCase() === "pending" || f.status?.toLowerCase() === "incomplete")
                 .map((farmer) => (
                   <Card key={farmer._id}>
+=======
+                .filter((f) => f.approval_status === "pending")
+                .map((farmer) => (
+                  <Card key={farmer.id}>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                     <CardContent className="p-4">
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
+<<<<<<< HEAD
                             <h3 className="font-semibold">{farmer.name || "Unknown"}</h3>
                             <Badge variant={farmer.status?.toLowerCase() === 'incomplete' ? "outline" : "secondary"}>
                               {farmer.status?.toLowerCase() === 'pending' ? 'Under Review' :
@@ -361,10 +486,28 @@ export default function AdminDashboard() {
                           {farmer.crops && (
                             <div className="flex gap-1 mt-2 flex-wrap">
                               <Badge variant="outline" className="text-xs">{farmer.crops}</Badge>
+=======
+                            <h3 className="font-semibold">{farmer.profiles?.full_name || "Unknown"}</h3>
+                            <Badge variant="secondary">{farmer.approval_status}</Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground mb-1">{farmer.profiles?.email}</p>
+                          <div className="grid grid-cols-2 gap-2 text-sm mt-2">
+                            <div><span className="text-muted-foreground">Farm: </span>{farmer.farm_name || "N/A"}</div>
+                            <div><span className="text-muted-foreground">Size: </span>{farmer.farm_size || "N/A"}</div>
+                            <div><span className="text-muted-foreground">Experience: </span>{farmer.experience_years || 0} years</div>
+                            <div><span className="text-muted-foreground">Registered: </span>{new Date(farmer.created_at).toLocaleDateString()}</div>
+                          </div>
+                          {farmer.crops_grown && farmer.crops_grown.length > 0 && (
+                            <div className="flex gap-1 mt-2 flex-wrap">
+                              {farmer.crops_grown.map((crop: string, i: number) => (
+                                <Badge key={i} variant="outline" className="text-xs">{crop}</Badge>
+                              ))}
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                             </div>
                           )}
                         </div>
                         <div className="flex gap-2">
+<<<<<<< HEAD
                           <Button
                             variant="outline"
                             size="sm"
@@ -386,6 +529,12 @@ export default function AdminDashboard() {
                             onClick={() => { setSelectedFarmer(farmer); setApproveDialogOpen(true); }}
                             title={farmer.status?.toLowerCase() === 'incomplete' ? "Warning: Full profile data is missing" : "Approve application"}
                           >
+=======
+                          <Button variant="outline" size="sm" onClick={() => { setSelectedFarmer(farmer); setRejectDialogOpen(true); }}>
+                            <XCircle className="w-4 h-4 mr-1" />Reject
+                          </Button>
+                          <Button size="sm" onClick={() => handleApproveFarmer(farmer)}>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                             <CheckCircle className="w-4 h-4 mr-1" />Approve
                           </Button>
                         </div>
@@ -406,16 +555,23 @@ export default function AdminDashboard() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Name</th>
+<<<<<<< HEAD
                     <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Contact</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Crops</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Exp</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Status</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Registered</th>
                     <th className="text-right py-3 px-4 text-sm font-medium text-muted-foreground">Actions</th>
+=======
+                    <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Farm</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Status</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Registered</th>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                   </tr>
                 </thead>
                 <tbody>
                   {filteredFarmers.map((farmer) => (
+<<<<<<< HEAD
                     <tr key={farmer._id} className="border-b hover:bg-muted/50">
                       <td className="py-3 px-4">
                         <p className="font-medium">{farmer.name}</p>
@@ -450,6 +606,20 @@ export default function AdminDashboard() {
                           Review
                         </Button>
                       </td>
+=======
+                    <tr key={farmer.id} className="border-b hover:bg-muted/50">
+                      <td className="py-3 px-4">
+                        <p className="font-medium">{farmer.profiles?.full_name}</p>
+                        <p className="text-sm text-muted-foreground">{farmer.profiles?.email}</p>
+                      </td>
+                      <td className="py-3 px-4">{farmer.farm_name || "N/A"}</td>
+                      <td className="py-3 px-4">
+                        <Badge variant={farmer.approval_status === "approved" ? "success" : farmer.approval_status === "rejected" ? "destructive" : "secondary"}>
+                          {farmer.approval_status}
+                        </Badge>
+                      </td>
+                      <td className="py-3 px-4 text-sm text-muted-foreground">{new Date(farmer.created_at).toLocaleDateString()}</td>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                     </tr>
                   ))}
                 </tbody>
@@ -474,6 +644,7 @@ export default function AdminDashboard() {
                 </thead>
                 <tbody>
                   {filteredUsers.map((u) => (
+<<<<<<< HEAD
                     <tr key={u._id} className="border-b hover:bg-muted/50">
                       <td className="py-3 px-4 font-medium">{u.name}</td>
                       <td className="py-3 px-4 text-muted-foreground">{u.email}</td>
@@ -481,6 +652,15 @@ export default function AdminDashboard() {
                         <Badge variant="secondary" className="capitalize">{u.role || "user"}</Badge>
                       </td>
                       <td className="py-3 px-4 text-sm text-muted-foreground">{new Date(u.createdAt).toLocaleDateString()}</td>
+=======
+                    <tr key={u.id} className="border-b hover:bg-muted/50">
+                      <td className="py-3 px-4 font-medium">{u.full_name}</td>
+                      <td className="py-3 px-4 text-muted-foreground">{u.email}</td>
+                      <td className="py-3 px-4">
+                        <Badge variant="secondary" className="capitalize">{u.user_roles?.[0]?.role || "user"}</Badge>
+                      </td>
+                      <td className="py-3 px-4 text-sm text-muted-foreground">{new Date(u.created_at).toLocaleDateString()}</td>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                     </tr>
                   ))}
                 </tbody>
@@ -526,6 +706,7 @@ export default function AdminDashboard() {
       case "orders":
         return (
           <div className="space-y-4">
+<<<<<<< HEAD
             <h2 className="text-xl font-semibold">All Platform Orders</h2>
             {orders.length === 0 ? (
               <Card>
@@ -605,11 +786,48 @@ export default function AdminDashboard() {
                     </CardContent>
                   </Card>
                 ))}
+=======
+            <h2 className="text-xl font-semibold">All Orders</h2>
+            {orders.length === 0 ? (
+              <Card>
+                <CardContent className="py-12 text-center">
+                  <ShoppingCart className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                  <p className="text-muted-foreground">No orders yet</p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Order #</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Buyer</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Amount</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Status</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order.id} className="border-b hover:bg-muted/50">
+                        <td className="py-3 px-4 font-medium">{order.order_number}</td>
+                        <td className="py-3 px-4">{order.buyer}</td>
+                        <td className="py-3 px-4">₹{order.total_amount}</td>
+                        <td className="py-3 px-4">
+                          <Badge variant={order.status === "delivered" ? "success" : "secondary"}>{order.status}</Badge>
+                        </td>
+                        <td className="py-3 px-4 text-sm text-muted-foreground">{new Date(order.created_at).toLocaleDateString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
               </div>
             )}
           </div>
         );
 
+<<<<<<< HEAD
       case "uploads":
         return (
           <div className="space-y-4">
@@ -653,6 +871,8 @@ export default function AdminDashboard() {
             </div>
           </div>
         );
+=======
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       default:
         return (
           <>
@@ -731,11 +951,19 @@ export default function AdminDashboard() {
                   <p className="text-sm text-muted-foreground mt-1">View all platform users</p>
                 </CardContent>
               </Card>
+<<<<<<< HEAD
               <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setActiveView("uploads")}>
                 <CardContent className="p-6 text-center">
                   <Package className="w-10 h-10 mx-auto mb-3 text-green-600" />
                   <h3 className="font-semibold">Farmer Uploads</h3>
                   <p className="text-sm text-muted-foreground mt-1">View all data uploading activity</p>
+=======
+              <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setActiveView("products")}>
+                <CardContent className="p-6 text-center">
+                  <Package className="w-10 h-10 mx-auto mb-3 text-green-600" />
+                  <h3 className="font-semibold">Products</h3>
+                  <p className="text-sm text-muted-foreground mt-1">View all listed products</p>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
                 </CardContent>
               </Card>
               <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setActiveView("orders")}>
@@ -766,6 +994,7 @@ export default function AdminDashboard() {
           </Link>
           <Badge variant="secondary" className="mt-2">Admin Panel</Badge>
         </div>
+<<<<<<< HEAD
 
         <nav className="px-4 space-y-1">
           <SidebarLink icon={Shield} label="Dashboard" active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} />
@@ -776,6 +1005,17 @@ export default function AdminDashboard() {
           <SidebarLink icon={ShoppingCart} label="Orders" count={totalOrders} active={activeView === "orders"} onClick={() => setActiveView("orders")} />
         </nav>
 
+=======
+        
+        <nav className="px-4 space-y-1">
+          <SidebarLink icon={Shield} label="Dashboard" active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} />
+          <SidebarLink icon={Sprout} label="Farmer Requests" count={pendingFarmers} active={activeView === "requests"} onClick={() => setActiveView("requests")} />
+          <SidebarLink icon={Users} label="All Users" count={totalUsers} active={activeView === "users"} onClick={() => setActiveView("users")} />
+          <SidebarLink icon={Package} label="Products" count={products.length} active={activeView === "products"} onClick={() => setActiveView("products")} />
+          <SidebarLink icon={ShoppingCart} label="Orders" count={totalOrders} active={activeView === "orders"} onClick={() => setActiveView("orders")} />
+        </nav>
+        
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
         <div className="absolute bottom-4 left-4 right-4">
           <Button variant="outline" className="w-full" onClick={handleSignOut}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -790,6 +1030,7 @@ export default function AdminDashboard() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold mb-1">
+<<<<<<< HEAD
               {activeView === "dashboard" ? "Admin Dashboard" :
                 activeView === "requests" ? "Farmer Requests" :
                   activeView === "farmers" ? "Registered Farmers" :
@@ -816,6 +1057,28 @@ export default function AdminDashboard() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
+=======
+              {activeView === "dashboard" ? "Admin Dashboard" : 
+               activeView === "requests" ? "Farmer Requests" :
+               activeView === "farmers" ? "All Farmers" :
+               activeView === "users" ? "All Users" :
+               activeView === "products" ? "Products" : "Orders"}
+            </h1>
+            <p className="text-muted-foreground">
+              {activeView === "dashboard" ? "Manage farmers, users, and platform analytics" : 
+               `Manage and view ${activeView}`}
+            </p>
+          </div>
+          <div className="relative mt-4 md:mt-0 w-full md:w-80">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search..."
+              className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
           </div>
         </div>
 
@@ -843,6 +1106,7 @@ export default function AdminDashboard() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+<<<<<<< HEAD
 
       {/* Approve Confirmation Dialog */}
       <Dialog open={approveDialogOpen} onOpenChange={setApproveDialogOpen}>
@@ -1046,5 +1310,8 @@ export default function AdminDashboard() {
         </DialogContent>
       </Dialog>
     </div >
+=======
+    </div>
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   );
 }

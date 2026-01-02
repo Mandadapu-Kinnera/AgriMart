@@ -78,7 +78,11 @@ const WeatherPage = () => {
       });
 
       const currentCondition = getCondition(weatherData.current.weather_code);
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       // Generate farming alerts based on weather
       const alerts: string[] = [];
       if (weatherData.current.temperature_2m > 35) {
@@ -131,8 +135,13 @@ const WeatherPage = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="min-h-screen flex flex-col bg-background pt-20">
       <Header showLinks={false} />
+=======
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
       <main className="flex-1">
         <section className="py-12 bg-gradient-to-b from-blue-50 to-background dark:from-blue-950/20">
           <div className="container mx-auto px-4">

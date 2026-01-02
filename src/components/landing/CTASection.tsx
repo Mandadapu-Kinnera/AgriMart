@@ -33,7 +33,12 @@ export function CTASection() {
           </p>
         </div>
 
+<<<<<<< HEAD
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+=======
+        {/* Roles Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+>>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
           {roles.map((role, index) => (
             <div
               key={role.title}
