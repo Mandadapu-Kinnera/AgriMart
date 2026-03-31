@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Leaf, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -11,17 +12,14 @@ const navigation = [
   { name: "For Farmers", href: "/farmer/register" },
 ];
 
-<<<<<<< HEAD
 interface HeaderProps {
   showLinks?: boolean;
 }
 
 export function Header({ showLinks = true }: HeaderProps) {
-=======
-export function Header() {
->>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, userRole, signOut } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
@@ -37,7 +35,6 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-<<<<<<< HEAD
         {showLinks && (
           <div className="hidden md:flex items-center gap-8">
             {navigation.map((item) => (
@@ -58,12 +55,27 @@ export function Header() {
         {/* Desktop CTA */}
         {showLinks && (
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" asChild>
-              <Link to="/auth">Log In</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/auth?mode=signup">Get Started</Link>
-            </Button>
+            {user ? (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to={userRole === "admin" ? "/admin" : (userRole === "farmer" ? "/farmer/dashboard" : "/dashboard")}>
+                    Dashboard
+                  </Link>
+                </Button>
+                <Button variant="outline" onClick={() => signOut()}>
+                  Log Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/auth">Log In</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/auth?mode=signup">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
         )}
 
@@ -80,44 +92,6 @@ export function Header() {
 
       {/* Mobile Menu */}
       {showLinks && mobileMenuOpen && (
-=======
-        <div className="hidden md:flex items-center gap-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                location.pathname === item.href ? "text-primary" : "text-muted-foreground"
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" asChild>
-            <Link to="/auth">Log In</Link>
-          </Button>
-          <Button asChild>
-            <Link to="/auth?mode=signup">Get Started</Link>
-          </Button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
->>>>>>> b280f82256a15bbfa9407e39e52a335cd3da42db
         <div className="md:hidden bg-background border-t border-border animate-fade-in">
           <div className="container mx-auto py-4 px-4 flex flex-col gap-4">
             {navigation.map((item) => (
@@ -134,12 +108,27 @@ export function Header() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-4 border-t border-border">
-              <Button variant="outline" asChild>
-                <Link to="/auth">Log In</Link>
-              </Button>
-              <Button asChild>
-                <Link to="/auth?mode=signup">Get Started</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="outline" asChild onClick={() => setMobileMenuOpen(false)}>
+                    <Link to={userRole === "admin" ? "/admin" : (userRole === "farmer" ? "/farmer/dashboard" : "/dashboard")}>
+                      Dashboard
+                    </Link>
+                  </Button>
+                  <Button variant="outline" onClick={() => { signOut(); setMobileMenuOpen(false); }}>
+                    Log Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" asChild onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/auth">Log In</Link>
+                  </Button>
+                  <Button asChild onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/auth?mode=signup">Get Started</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

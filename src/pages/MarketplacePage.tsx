@@ -76,16 +76,22 @@ export default function MarketplacePage() {
   const { latitude, longitude, loading: locationLoading, error: locationError, getLocation, calculateDistance, hasLocation } = useGeolocation();
 
   const fetchProducts = async () => {
+    console.log('MarketplacePage: Fetching products...');
     try {
       setLoading(true);
       const response = await fetch('/api/products');
+      console.log('MarketplacePage: Fetch response status:', response.status);
       if (response.ok) {
         const data = await response.json();
+        console.log(`MarketplacePage: Received ${data.length} products`);
         setProducts(data);
+      } else {
+        console.error('MarketplacePage: Fetch failed with status', response.status);
       }
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('MarketplacePage: Error fetching products:', error);
     } finally {
+      console.log('MarketplacePage: Setting loading to false');
       setLoading(false);
     }
   };
@@ -261,7 +267,7 @@ export default function MarketplacePage() {
 
   };
 
-  const cartTotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  const cartTotal = cart.reduce((sum, item) => sum + ((item.product?.price || 0) * item.quantity), 0);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const wishlistProducts = products.filter(p => wishlist.includes(p._id));
 

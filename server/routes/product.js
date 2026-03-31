@@ -8,9 +8,12 @@ const { verifyToken } = require('../middleware/auth');
 
 // GET: All products (Marketplace)
 router.get('/', async (req, res) => {
+    console.log('GET /api/products - Start fetching');
     try {
         const products = await Product.find().sort({ createdAt: -1 });
+        console.log(`GET /api/products - Found ${products.length} products. Sending response...`);
         res.json(products);
+        console.log('GET /api/products - Response sent');
     } catch (error) {
         console.error('Fetch All Products Error:', error);
         res.status(500).json({ message: error.message });
